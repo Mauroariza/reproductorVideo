@@ -8,7 +8,7 @@ const PEXELS_API_KEY = 'UFCreoudjWmEEDbBCA2xJ0Qmdqm0Dqc1ahQ2x3lF2ZbiK3EUREFw9qp8
 
 const App: React.FC = () => {
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
-  const [videoUrls, setVideoUrls] = useState<Video[]>([]);
+  const [videos, setVideos] = useState<Video[]>([]);
   const [currentVideo, setCurrentVideo] = useState<Video | null>(null);
   
 
@@ -20,18 +20,19 @@ const App: React.FC = () => {
             Authorization: PEXELS_API_KEY
           },
           params: {
-            per_page: 10
+            per_page: 10  
           }
         });
         const videos = response.data.videos;
-        setVideoUrls(videos);
+        console.log(response)
+        setVideos(videos);
         if (videos.length > 0) {
           setCurrentVideo(videos[0]);
         }
       } catch (error) {
         console.error('Error fetching video URLs:', error);
       }
-    };
+    };  
 
     fetchVideoUrls();
   }, []);
@@ -40,7 +41,7 @@ const App: React.FC = () => {
 
   const handleVideoSelect = (video: Video) => {
     setCurrentVideo(video);
-    setIsPlaying(false);
+    setIsPlaying(true);
   };
 
   return (
@@ -65,7 +66,7 @@ const App: React.FC = () => {
         <div className="w-full md:w-1/4 p-4 overflow-auto h-full md:h-screen bg-indigo-950  ">
           <h3 className="text-3xl font-bold mb-2">Lista de Videos</h3>
           <div className="space-y-4">
-            {videoUrls.map((video, index) => (
+            {videos.map((video, index) => (
               <div 
                 key={index} 
                 className="cursor-pointer flex items-center"

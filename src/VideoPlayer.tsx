@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import ReactPlayer from 'react-player';
+import ReactPlayer from 'react-player'; 
 
 interface VideoPlayerProps {
   url: string;
